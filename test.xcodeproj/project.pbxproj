@@ -14,6 +14,7 @@
 		4179121C2BCBAE16008346DA /* loginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4179121B2BCBAE16008346DA /* loginView.swift */; };
 		4179121E2BCBBD9B008346DA /* RangeBeaconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4179121D2BCBBD9B008346DA /* RangeBeaconView.swift */; };
 		417912202BCBF45D008346DA /* RangeBeacon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4179121F2BCBF45D008346DA /* RangeBeacon.swift */; };
+		417912222BCCE50F008346DA /* homePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 417912212BCCE50F008346DA /* homePage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +26,7 @@
 		4179121B2BCBAE16008346DA /* loginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = loginView.swift; sourceTree = "<group>"; };
 		4179121D2BCBBD9B008346DA /* RangeBeaconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeBeaconView.swift; sourceTree = "<group>"; };
 		4179121F2BCBF45D008346DA /* RangeBeacon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RangeBeacon.swift; sourceTree = "<group>"; };
+		417912212BCCE50F008346DA /* homePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = homePage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			children = (
 				414362532BB5B76A00125EC7 /* testApp.swift */,
 				414362552BB5B76A00125EC7 /* ContentView.swift */,
+				417912212BCCE50F008346DA /* homePage.swift */,
 				414362572BB5B76C00125EC7 /* Assets.xcassets */,
 				414362592BB5B76C00125EC7 /* Preview Content */,
 			);
@@ -149,6 +152,7 @@
 				417912202BCBF45D008346DA /* RangeBeacon.swift in Sources */,
 				4179121E2BCBBD9B008346DA /* RangeBeaconView.swift in Sources */,
 				414362562BB5B76A00125EC7 /* ContentView.swift in Sources */,
+				417912222BCCE50F008346DA /* homePage.swift in Sources */,
 				4179121C2BCBAE16008346DA /* loginView.swift in Sources */,
 				414362542BB5B76A00125EC7 /* testApp.swift in Sources */,
 			);

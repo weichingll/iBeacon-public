@@ -9,8 +9,9 @@ import SwiftUI
 
 
 class IsLog : ObservableObject {
-    @Published var isLogin = false
+    @Published var isLogin = false //若false則顯示登入畫面或註冊
     @Published var Register = false
+    
 }
 
 
@@ -19,18 +20,17 @@ struct mainView:View {
     @EnvironmentObject var isLog : IsLog
     var body: some View {
         Group{
-            if(isLog.isLogin == false){
+            if (isLog.isLogin == true){
+                homePage().environmentObject(IsLog())
+            }else if(isLog.isLogin == false){
                 if isLog.Register == true{
                     registerView()
                 }else{
                     loginView()
                 }
-            }else if(isLog.isLogin == true){
-                RangeBeaconView()
             }
         }}
 }
-
 
 
 struct loginView : View {
@@ -38,6 +38,7 @@ struct loginView : View {
     @State private var userPassword: String=""
     @State private var isRangeBeacon=false
     @EnvironmentObject var isLog : IsLog
+    
     
     var body: some View {
             VStack{
@@ -72,7 +73,7 @@ struct registerView : View {
     @State private var date = Date()//生日
     @State private var phoneNumber : String = ""
     @State private var email : String = ""
-    
+    @State private var isShowRegisterSucess = false
     var body: some View {
         VStack{
             Text("姓名：")
@@ -87,7 +88,7 @@ struct registerView : View {
                 .textFieldStyle(.roundedBorder)
             Text("密碼：")
                 .frame(height: 45)
-            TextField("密碼", text : $userPassword)
+            SecureField("密碼", text : $userPassword)
                 .multilineTextAlignment(.center)
                 .textFieldStyle(.roundedBorder)
             Text("生日：")
@@ -103,7 +104,14 @@ struct registerView : View {
                 .multilineTextAlignment(.center)
                 .textFieldStyle(.roundedBorder)
             Button("註冊"){
-                isLog.Register = false
+                isShowRegisterSucess.toggle()
+            }
+            .alert("註冊成功", isPresented : $isShowRegisterSucess){
+                Button("ok"){
+                    isLog.Register.toggle()
+                }
+            }message: {
+                Text("返回登入介面重新登入")
             }
             
         }
