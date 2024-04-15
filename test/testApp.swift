@@ -11,7 +11,8 @@ import SwiftUI
 struct testApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            mainView().environmentObject(IsLog())
         }
+
     }
 }
