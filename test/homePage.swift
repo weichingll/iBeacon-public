@@ -9,6 +9,7 @@ import SwiftUI
 
 struct homePage: View {
     @EnvironmentObject var isLog : IsLog
+    @State private var isLogout = false
     var body: some View {
         Text("主頁")
         HStack{
@@ -25,9 +26,16 @@ struct homePage: View {
             }
             Text("|")
             Button("個人資訊"){
-                isLog.isLogin.toggle()
-                
+                isLogout.toggle()
             }
+            .alert("確定登出？", isPresented: $isLogout, actions: {
+                Button("確定"){
+                    isLog.isLogin.toggle()
+                }
+                Button("取消"){
+                    
+                }
+            })
         }
     }
 }

@@ -21,7 +21,7 @@ struct mainView:View {
     var body: some View {
         Group{
             if (isLog.isLogin == true){
-                homePage().environmentObject(IsLog())
+                homePage()
             }else if(isLog.isLogin == false){
                 if isLog.Register == true{
                     registerView()
