@@ -77,6 +77,7 @@ struct registerView : View {
     var body: some View {
         VStack{
             Text("姓名：")
+                .padding()
                 .frame(height: 45)
             TextField("姓名", text : $userName)
                 .multilineTextAlignment(.center)
