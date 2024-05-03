@@ -11,10 +11,9 @@ import SwiftUI
 class IsLog : ObservableObject {
     @Published var isLogin = false //若false則顯示登入畫面或註冊
     @Published var Register = false
+    @Published var BeaconPage = false
     
 }
-
-
 
 struct mainView:View {
     @EnvironmentObject var isLog : IsLog
@@ -22,6 +21,9 @@ struct mainView:View {
         Group{
             if (isLog.isLogin == true){
                 homePage()
+                if (isLog.BeaconPage == true){
+                    RangeBeaconView()
+                }
             }else if(isLog.isLogin == false){
                 if isLog.Register == true{
                     registerView()
@@ -67,13 +69,16 @@ struct loginView : View {
 
 struct registerView : View {
     @EnvironmentObject var isLog : IsLog
+    @EnvironmentObject var data : data_link
     @State private var userName : String = ""
     @State private var userAccount : String = ""
     @State private var userPassword : String = ""
-    @State private var date = Date()//生日
-    @State private var phoneNumber : String = ""
-    @State private var email : String = ""
+    @State private var userdate = Date()//生日
+    //@State private var phoneNumber : String = ""
+    @State private var useremail : String = ""
     @State private var isShowRegisterSucess = false
+    @State private var isShowRegisterFail = false
+
     var body: some View {
         VStack{
             Text("姓名：")
@@ -96,16 +101,28 @@ struct registerView : View {
                 .frame(height: 45)
             DatePicker(
                 "生日",
-                selection: $date,
+                selection: $userdate,
                 displayedComponents: [.date]
             ).frame(width: /*@START_MENU_TOKEN@*/100/*@END_MENU_TOKEN@*/)
             Text("電子郵件")
                 .frame(height: 45)
-            TextField("email", text : $email)
+            TextField("email", text : $useremail)
                 .multilineTextAlignment(.center)
                 .textFieldStyle(.roundedBorder)
             Button("註冊"){
-                isShowRegisterSucess.toggle()
+                data.loadData_Account{ accountData in
+                    print(accountData)
+                    if (!accountData.contains(userAccount) && userName != "" && userAccount != "" && userPassword != "" && useremail != ""){
+                        print("YES")
+                        let userdata = database_user(records: [.init(fields: .init(user: userAccount, password: userPassword, name: userName, date: userdate, email: useremail))])
+                        data.uploadData(userdata)
+                        isShowRegisterSucess.toggle()
+                        
+                    }else{
+                        print("NO")
+                        isShowRegisterFail.toggle()
+                    }
+                }
             }
             .alert("註冊成功", isPresented : $isShowRegisterSucess){
                 Button("ok"){
@@ -114,24 +131,14 @@ struct registerView : View {
             }message: {
                 Text("返回登入介面重新登入")
             }
-            
+            .alert("註冊失敗", isPresented : $isShowRegisterFail){
+                Button("ok"){
+                }
+            }
         }
     }
 }
-/*
-@State private var date = Date()
-
-var body: some View {
-    DatePicker(
-        "Start Date",
-        selection: $date,
-        displayedComponents: [.date]
-    )
-}
-
-*/
-
 
 #Preview {
-    mainView().environmentObject(IsLog())
+    mainView().environmentObject(IsLog()).environmentObject(data_link())
 }

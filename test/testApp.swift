@@ -11,7 +11,7 @@ import SwiftUI
 struct testApp: App {
     var body: some Scene {
         WindowGroup {
-            mainView().environmentObject(IsLog())
+            mainView().environmentObject(IsLog()).environmentObject(data_link())
         }
 
     }

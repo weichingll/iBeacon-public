@@ -13,6 +13,10 @@ struct homePage: View {
     var body: some View {
         Text("主頁")
         HStack{
+            Button("Beacon"){
+                isLog.BeaconPage.toggle()
+            }
+            Text("|")
             Button("點數"){
                 
             }
