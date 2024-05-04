@@ -15,32 +15,34 @@ struct RangeBeaconView: View {
     @State private var EnterUUID = ""
 
     var body: some View {
-        VStack{
-            
-            Text("ADD BEACON")
-                .font(.title)
-            List{
-                ForEach(Array(beacons.beaconData.keys), id: \.self) { key in
-                    let value = beacons.beaconData[key, default: []]
-                    ForEach(value.indices, id: \.self) { index in
-                        let (uuid, major, minor, distance) = value[index]
-                        Text("\(uuid)").fixedSize()
-                        Text("Major: \(major), Minor: \(minor), 距離: \(distance)")
-                    }
-                }
-            }
-            /*TextField("    xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", text: $EnterUUID)
-                .frame(width: 370)
-                .textFieldStyle(.roundedBorder)*/
-            Button("Check"){
-                data.loadData_Beacon{ beacon_uuid in
-                    for uuid in beacon_uuid{
-                        if let uuids = UUID(uuidString : uuid){
-                            enteredUUIDs.append(uuids)
+        NavigationStack{
+            VStack{
+                
+                Text("ADD BEACON")
+                    .font(.title)
+                List{
+                    ForEach(Array(beacons.beaconData.keys), id: \.self) { key in
+                        let value = beacons.beaconData[key, default: []]
+                        ForEach(value.indices, id: \.self) { index in
+                            let (uuid, major, minor, distance) = value[index]
+                            Text("\(uuid)").fixedSize()
+                            Text("Major: \(major), Minor: \(minor), 距離: \(distance)")
                         }
                     }
-                    beacons.StartMonitor(for: enteredUUIDs)
-                    
+                }
+                /*TextField("    xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx", text: $EnterUUID)
+                    .frame(width: 370)
+                    .textFieldStyle(.roundedBorder)*/
+                Button("Check"){
+                    data.loadData_Beacon{ beacon_uuid in
+                        for uuid in beacon_uuid{
+                            if let uuids = UUID(uuidString : uuid){
+                                enteredUUIDs.append(uuids)
+                            }
+                        }
+                        beacons.StartMonitor(for: enteredUUIDs)
+                        
+                    }
                 }
             }
         }
